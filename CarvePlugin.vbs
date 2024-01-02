@@ -626,14 +626,14 @@ Private Function ReplaceShapeText(ByVal TableShape As Shape, ByVal TotalCounter 
     If TableShape.Type = cdrCustomShape Then
         ' 获取表格的行数
         Dim RowCount As Integer
-        RowCount = TableShape.Custom.Rows.Count
+        RowCount = TableShape.Custom.Rows.Count ' 用于计算在Excel中应当对应的行数
 
         ' 创建正则表达式对象
         Dim regex As Object
         Set regex = CreateObject("VBScript.RegExp")
         With regex
             .Global = True ' 全局匹配
-            .Pattern = "\{([A-Z]{1,3})(\d+)\}" '设置模式 用于匹配 {A1} {B2} {AA2}
+            .Pattern = "\{([A-Z]{1,3})(\d+)\}" '设置模式 用于匹配类似于 {A1} {B2} {AA21} 这样的文本
         End With
 
 
@@ -644,7 +644,7 @@ Private Function ReplaceShapeText(ByVal TableShape As Shape, ByVal TotalCounter 
             'If Not element Is Nothing Then
             Dim t As Text
             Set t = element.TextShape.Text
-            ' 获取元素的文本内容和字体大小
+            ' 获取单元格内的文本内容及字体大小
             textcontent = t.Story.Text
             fsize = t.Story.Size
 
