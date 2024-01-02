@@ -531,7 +531,7 @@ Private Sub btnDoExcelFill_Click()
     ' 使用CorelDraw原生打开文件对话框
     ' 参看 https://www.cdrvba.com/article-coreldraw-vba-open-file-dialog
     ExcelFileToOpen = CorelScriptTools.GetFileBox("所有 Excel 文件(*.xls*)|*.xls;*.xlsx|所有文件(*.*)|*.*", "请选择Excel数据文件", 0, "")
-    ' 使用Excel功能里的打开文件对话框 可能会出现在后台 不显示
+    ' 使用Excel功能里的打开文件对话框 该对话框非模态对话框 会被遮挡
     'ExcelFileToOpen = excelApp.GetOpenFilename("所有 Excel 文件(*.xls*),*.xls;*.xlsx,所有文件(*.*),*.*")
     
     If ExcelFileToOpen = "" Then
