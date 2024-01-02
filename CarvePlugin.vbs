@@ -639,10 +639,12 @@ Private Function ReplaceShapeText(ByVal TableShape As Shape, ByVal TotalCounter 
 
         Dim element As Variant
         Dim fsize As Double
+        Dim textcontent As String
         For Each element In TableShape.Custom.Cells ' 遍历表格中的每个单元格
             'If Not element Is Nothing Then
             Dim t As Text
             Set t = element.TextShape.Text
+            ' 获取元素的文本内容和字体大小
             textcontent = t.Story.Text
             fsize = t.Story.Size
 
@@ -665,8 +667,26 @@ Private Function ReplaceShapeText(ByVal TableShape As Shape, ByVal TotalCounter 
 
                     ' 取Excel单元格的值
                     cellValue = excelWorksheet.Range(letterPart & CStr(real_number)).Value
+
+                    ' Excel中的单元格文本如包含换行符，则获取到的文本仅含有Chr(10)字符而不是vbCrLf或者vbNewLine，因此需要特殊处理
+                    Dim arr() As String
+                    Dim cellValueWithNewLine As String
+                    cellValueWithNewLine = ""
+                    arr = Split(cellValue, Chr(10))
+                    If UBound(arr) > 0 Then
+                        For i = 0 To UBound(arr)
+                            If i <> UBound(arr) Then
+                                cellValueWithNewLine = cellValueWithNewLine & arr(i) & vbCrLf
+                            Else
+                                cellValueWithNewLine = cellValueWithNewLine & arr(i)
+                            End If
+                        Next i
+                    Else
+                        cellValueWithNewLine = cellValue
+                    End If
+
                     ' 替换原文本的内容
-                    textcontent = Replace(textcontent, "{" & letterPart & numberPart & "}", cellValue)
+                    textcontent = Replace(textcontent, "{" & letterPart & numberPart & "}", cellValueWithNewLine)
 
                     ' 设置已读取数据的Excel单元格的背景颜色为红色
                     excelWorksheet.Range(letterPart & CStr(real_number)).Interior.Color = RGB(255, 0, 0)
@@ -674,6 +694,7 @@ Private Function ReplaceShapeText(ByVal TableShape As Shape, ByVal TotalCounter 
             Next match
             ' 到这里已经替换结束 更新元素
             t.Story.Text = textcontent
+            ' 再一次把之前获取到的字体大小设置到元素中，不这样处理的话中文字大小会不统一
             t.Story.Words.All.Size = fsize
 
         Next element
