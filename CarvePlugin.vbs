@@ -531,7 +531,7 @@ Private Sub btnDoExcelFill_Click()
     ' 使用CorelDraw原生打开文件对话框
     ' 参看 https://www.cdrvba.com/article-coreldraw-vba-open-file-dialog
     ExcelFileToOpen = CorelScriptTools.GetFileBox("所有 Excel 文件(*.xls*)|*.xls;*.xlsx|所有文件(*.*)|*.*", "请选择Excel数据文件", 0, "")
-    ' 使用Excel功能里的打开文件对话框 该对话框非模态对话框 会被遮挡
+    ' 使用Excel功能里的打开文件对话框 可能会出现在后台 不显示
     'ExcelFileToOpen = excelApp.GetOpenFilename("所有 Excel 文件(*.xls*),*.xls;*.xlsx,所有文件(*.*),*.*")
     
     If ExcelFileToOpen = "" Then
@@ -633,16 +633,18 @@ Private Function ReplaceShapeText(ByVal TableShape As Shape, ByVal TotalCounter 
         Set regex = CreateObject("VBScript.RegExp")
         With regex
             .Global = True ' 全局匹配
-            .Pattern = "\{([A-Z]{1,3})(\d+)\}" '设置模式 用于匹配 {A1} {B2} {AA2} 类似这种形式
+            .Pattern = "\{([A-Z]{1,3})(\d+)\}" '设置模式 用于匹配 {A1} {B2} {AA2}
         End With
 
 
         Dim element As Variant
+        Dim fsize As Double
         For Each element In TableShape.Custom.Cells ' 遍历表格中的每个单元格
             'If Not element Is Nothing Then
             Dim t As Text
             Set t = element.TextShape.Text
-            textcontent = t.Story
+            textcontent = t.Story.Text
+            fsize = t.Story.Size
 
             Dim matches As Object
             Set matches = regex.Execute(textcontent)
@@ -670,8 +672,9 @@ Private Function ReplaceShapeText(ByVal TableShape As Shape, ByVal TotalCounter 
                     excelWorksheet.Range(letterPart & CStr(real_number)).Interior.Color = RGB(255, 0, 0)
                 End If
             Next match
-            ' 到这里文本已经替换完毕 更新界面上的元素
-            t.Story = textcontent
+            ' 到这里已经替换结束 更新元素
+            t.Story.Text = textcontent
+            t.Story.Words.All.Size = fsize
 
         Next element
 
@@ -692,13 +695,14 @@ Private Function DuplicateShape(ByVal srcShape As Shape, ByVal RowNumber As Inte
 End Function
 
 
-' 缩放活动视图匹配页面
+' 缩放活动视力到匹配页面
 Private Sub ZoomToFitPage()
     Dim pageWidth As Double, pageHeight As Double
     pageWidth = txtPageWidth.Value
     pageHeight = txtPageHeight.Value
     ActiveWindow.ActiveView.ToFitArea -5, -5, pageWidth + 5, pageHeight + 5
 End Sub
+
 
 
 Sub ChangeClipData()
@@ -783,4 +787,3 @@ ErrHandler:
     MsgBox "出现错误: " & Err.Description
     Resume ExitSub
 End Sub
-
