@@ -228,7 +228,7 @@ Private Sub btnSameLineSpacing_Click()
                             ' t.Story.ParaSpacingAfter
                             '在界面上显示默认为 前100 后0 行100 （传入参数顺序为 行100 前100 后0）
                             t.Story.SetLineSpacing cdrPercentOfCharacterHeightLineSpacing, LineSpacing, ParaBefore, ParaAfter
-
+                            
                             ' t.Story.Paragraphs.Item(1).Bold = True
                             ' t.Story.Paragraphs.Item(1).Underline = cdrDoubleThinFontLine
                             ' Set AllParagraphs = t.Story.Paragraphs
