@@ -12,6 +12,9 @@ Private Sub UserForm_Initialize()
 
     ' 默认选中第一个功能页面
     MultiPage1.Value = 0
+
+    ' 默认Excel填充不可用
+    btnDoExcelFill.Enabled = False
 End Sub
 
 
@@ -39,11 +42,16 @@ Private Sub UserForm_Activate()
                     txtRowCount.Value = Int(txtPageHeight.Value / (TableShape.SizeHeight + txtRowSpan.Value))
                     txtColCount.Value = Int(txtPageWidth.Value / (TableShape.SizeWidth + txtColSpan.Value))
                 End If
+                ' 启用Excel填充
+                btnDoExcelFill.Enabled = True
 
             End If
             If ActiveSelection.Shapes.Count = 0 Then
                 txtWidth.Value = 0
                 txtHeight.Value = 0
+
+                ' 禁用Excel填充
+                btnDoExcelFill.Enabled = False
             End If
         Else
             btnSameRotateApply.Enabled = False
@@ -692,9 +700,9 @@ Private Function ReplaceShapeText(ByVal TableShape As Shape, ByVal TotalCounter 
                     excelWorksheet.Range(letterPart & CStr(real_number)).Interior.Color = RGB(255, 0, 0)
                 End If
             Next match
-            ' 到这里已经替换结束 更新元素
+            ' 到这里已经替换结束 更新文本内容
             t.Story.Text = textcontent
-            ' 再一次把之前获取到的字体大小设置到元素中，不这样处理的话中文字大小会不统一
+            ' 再次把之前获取到的字体大小设置到元素中，不这样处理的话中文字体大小会不统一
             t.Story.Words.All.Size = fsize
 
         Next element
