@@ -677,7 +677,7 @@ Private Function ReplaceShapeText(ByVal TableShape As Shape, ByVal TotalCounter 
                     real_number = RowCount * (TotalCounter - 1) + fomuer_number
 
                     ' 取Excel单元格的值
-                    cellValue = excelWorksheet.Range(letterPart & CStr(real_number)).Value
+                    cellValue = excelWorksheet.Range(letterPart & CStr(real_number)).Text
 
                     ' Excel中的单元格文本如包含换行符，则获取到的文本仅含有Chr(10)字符而不是vbCrLf或者vbNewLine，因此需要特殊处理
                     Dim arr() As String
