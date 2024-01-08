@@ -35,16 +35,19 @@ Private Sub UserForm_Activate()
                 txtWidth.Value = ActiveSelection.Shapes(1).SizeWidth
                 txtHeight.Value = ActiveSelection.Shapes(1).SizeHeight
 
-                ' 根据页面大小自动计算 使用Excel数据填充到表格 页面上最多能放置的行数和列数
+                ' 根据页面大小自动计算 使用Excel数据填充到表格功能下 页面上最多能放置的行数和列数
                 Dim TableShape As Shape
                 Set TableShape = ActiveSelection.Shapes(1)
                 If TableShape.Type = cdrCustomShape Then
                     txtRowCount.Value = Int(txtPageHeight.Value / (TableShape.SizeHeight + txtRowSpan.Value))
                     txtColCount.Value = Int(txtPageWidth.Value / (TableShape.SizeWidth + txtColSpan.Value))
-                End If
-                ' 启用Excel填充
-                btnDoExcelFill.Enabled = True
 
+                    ' 启用Excel填充
+                    btnDoExcelFill.Enabled = True
+                Else
+                    ' 禁用Excel填充
+                    btnDoExcelFill.Enabled = False
+                End If
             End If
             If ActiveSelection.Shapes.Count = 0 Then
                 txtWidth.Value = 0
