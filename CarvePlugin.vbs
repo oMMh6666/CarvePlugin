@@ -813,7 +813,7 @@ Sub ChangeClipData()
         PastedShapeRange.SizeWidth = cellWidth * ColumnCount
         PastedShapeRange.SizeHeight = cellHeight * RowCount
     
-    ActiveDocument.EndCommandGroup    
+    ActiveDocument.EndCommandGroup
     Me.Hide
     
 ExitSub:
