@@ -184,11 +184,12 @@ Sub CreateTable()
         createdTable.SizeHeight = tableHeight
 
     ' 结束命令组
-    ActiveDocument.EndCommandGroup
+    ActiveDocument.EndCommandGroup    
     Me.Hide
     
 ExitSub:
     Optimization = False
+    ActiveWindow.Refresh
     Exit Sub
 ErrHandler:
     MsgBox "出现错误: " & Err.Description
@@ -256,7 +257,7 @@ Private Sub btnSameLineSpacing_Click()
         End If
         
         '结束命令组
-        ActiveDocument.EndCommandGroup
+        ActiveDocument.EndCommandGroup        
         Me.Hide
 
     Else
@@ -264,6 +265,7 @@ Private Sub btnSameLineSpacing_Click()
     End If
 ExitSub:
     Optimization = False
+    ActiveWindow.Refresh
     Exit Sub
 ErrHandler:
     MsgBox "出现错误: " & Err.Description
@@ -347,11 +349,12 @@ Private Sub btnAutoTextSizeApply_Click()
     End If
     
     '结束命令组
-    ActiveDocument.EndCommandGroup
+    ActiveDocument.EndCommandGroup    
     Me.Hide
                 
 ExitSub:
     Optimization = False
+    ActiveWindow.Refresh
     Exit Sub
 ErrHandler:
     MsgBox "出现错误: " & Err.Description
@@ -406,7 +409,7 @@ Private Sub btnSameRotateApply_Click()
             End If
         
         '结束命令组
-        ActiveDocument.EndCommandGroup
+        ActiveDocument.EndCommandGroup        
         Me.Hide
     Else
         MsgBox "未选择旋转对象!", vbOKOnly + vbCritical, "错误"
@@ -414,6 +417,7 @@ Private Sub btnSameRotateApply_Click()
     
 ExitSub:
     Optimization = False
+    ActiveWindow.Refresh
     Exit Sub
 ErrHandler:
     MsgBox "出现错误: " & Err.Description
@@ -467,8 +471,7 @@ Private Sub btnSameSizeApply_Click()
                 End If
             
             ActiveDocument.EndCommandGroup
-            '结束命令组
-            'ActiveWindow.Refresh
+            '结束命令组            
             'MsgBox "共修改 " + CStr(ActiveSelection.Shapes.Count) + " 个对象!", vbOKOnly + vbInformation, "完成"
             Me.Hide
 
@@ -486,6 +489,7 @@ Private Sub btnSameSizeApply_Click()
     
 ExitSub:
     Optimization = False
+    ActiveWindow.Refresh
     Exit Sub
 ErrHandler:
     MsgBox "出现错误: " & Err.Description & " 请检查Excel数据!"
@@ -809,11 +813,12 @@ Sub ChangeClipData()
         PastedShapeRange.SizeWidth = cellWidth * ColumnCount
         PastedShapeRange.SizeHeight = cellHeight * RowCount
     
-    ActiveDocument.EndCommandGroup
+    ActiveDocument.EndCommandGroup    
     Me.Hide
     
 ExitSub:
     Optimization = False
+    ActiveWindow.Refresh
     Exit Sub
 ErrHandler:
     MsgBox "出现错误: " & Err.Description

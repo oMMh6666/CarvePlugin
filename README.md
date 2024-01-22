@@ -6,7 +6,7 @@
 
 
 ## Coreldraw版本适用
-目前仅在Coreldraw X4版本中进行测试，其他版本未测试，自行适配
+   目前仅在Coreldraw X4版本中进行测试，其他版本未测试，自行适配
 
 
 ## 安装方法
@@ -74,4 +74,3 @@
 ![Alt text](PNG/PixPin_2024-01-15_16-11-46.png)
 
 ![Alt text](PNG/PixPin_2024-01-15_16-11-56.png)
-
