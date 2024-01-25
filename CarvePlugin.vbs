@@ -35,7 +35,7 @@ Private Sub UserForm_Activate()
                 txtWidth.Value = ActiveSelection.Shapes(1).SizeWidth
                 txtHeight.Value = ActiveSelection.Shapes(1).SizeHeight
 
-                ' 根据页面大小自动计算 使用Excel数据填充到表格功能下 页面上最多能放置的行数和列数
+                ' 根据页面大小自动计算 使用Excel数据填充到表格功能 当前页面尺寸里最多能放置的行数和列数
                 Dim TableShape As Shape
                 Set TableShape = ActiveSelection.Shapes(1)
                 If TableShape.Type = cdrCustomShape Then
